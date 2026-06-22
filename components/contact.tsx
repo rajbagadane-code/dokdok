@@ -143,8 +143,8 @@ export default function Contact() {
         <div className="grid sm:grid-cols-3 gap-6 mt-12">
           {[
             { label: 'Email', value: 'contact@shreedev.art' },
-            { label: 'Phone', value: '+91 XXXXX XXXXX' },
-            { label: 'Location', value: 'City Name, India' },
+            { label: 'Phone', value: '+91 7400207911' },
+            { label: 'Location', value: 'Maharashtra, India' },
           ].map((item) => (
             <div key={item.label} className="text-center">
               <p className="text-sm font-light text-foreground/60 uppercase tracking-wider mb-2">

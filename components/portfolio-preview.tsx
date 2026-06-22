@@ -12,27 +12,40 @@ const featured = [
     title: 'Grand Wedding Celebration',
     subtitle: 'Sharma × Mehta · Mumbai',
     category: 'Wedding',
-    image: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80',
-    span: 'lg:col-span-2 lg:row-span-2',
-    height: 'h-[400px] lg:h-full',
+    image: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=900&q=80',
+    large: true,
   },
   {
     id: 2,
     title: 'TechCorp Annual Gala',
     subtitle: 'Fortune 500 · Bangalore',
     category: 'Corporate',
-    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80',
-    span: '',
-    height: 'h-[220px]',
+    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80',
+    large: false,
   },
   {
     id: 3,
     title: 'Bloom Music Festival',
-    subtitle: 'Annual Cultural · Pune',
+    subtitle: 'Cultural Event · Pune',
     category: 'Experience',
-    image: 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800&q=80',
-    span: '',
-    height: 'h-[220px]',
+    image: 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=600&q=80',
+    large: false,
+  },
+  {
+    id: 4,
+    title: 'Royal Mehndi Night',
+    subtitle: 'Khan Wedding · Jaipur',
+    category: 'Wedding',
+    image: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&q=80',
+    large: false,
+  },
+  {
+    id: 5,
+    title: 'Nexus Product Launch',
+    subtitle: 'Tech Startup · Hyderabad',
+    category: 'Corporate',
+    image: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=600&q=80',
+    large: false,
   },
 ]
 
@@ -41,13 +54,12 @@ export default function PortfolioPreview() {
   const [hovered, setHovered] = useState<number | null>(null)
 
   return (
-    <section className="py-28 px-4 sm:px-6 lg:px-8">
+    <section className="py-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-transparent via-accent/4 to-transparent">
       <div className="max-w-7xl mx-auto">
 
-        {/* Header */}
         <div
           ref={ref}
-          className={`flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-14 transition-all duration-700 ${
+          className={`flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12 transition-all duration-700 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
@@ -59,64 +71,80 @@ export default function PortfolioPreview() {
               Crafted <span className="text-accent">Moments</span>
             </h2>
           </div>
-          <Link
-            href="/portfolio"
-            className="group inline-flex items-center gap-2 text-sm font-light text-foreground/60 hover:text-accent transition-colors duration-300 shrink-0"
-          >
+          <Link href="/portfolio" className="group inline-flex items-center gap-2 text-sm font-light text-foreground/55 hover:text-accent transition-colors duration-300 shrink-0">
             View full portfolio
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
           </Link>
         </div>
 
-        {/* Asymmetric grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 lg:grid-rows-[220px_220px]">
-          {featured.map((item, i) => (
+        {/* Bento-style grid */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 grid-rows-[240px_240px] gap-4">
+          {/* Large card — spans 2 cols & 2 rows */}
+          {featured.slice(0, 1).map((item) => (
             <div
               key={item.id}
-              className={`relative rounded-2xl overflow-hidden cursor-pointer transition-all duration-700 ${item.span} ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              className={`col-span-2 row-span-2 relative rounded-2xl overflow-hidden cursor-pointer transition-all duration-700 ${
+                isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
               }`}
-              style={{ transitionDelay: isVisible ? `${i * 120}ms` : '0ms' }}
               onMouseEnter={() => setHovered(item.id)}
               onMouseLeave={() => setHovered(null)}
             >
-              <div className={`relative w-full ${item.height}`}>
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  fill
-                  className={`object-cover transition-transform duration-700 ${hovered === item.id ? 'scale-110' : 'scale-100'}`}
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                <div className={`absolute inset-0 bg-black/30 transition-opacity duration-500 ${hovered === item.id ? 'opacity-100' : 'opacity-0'}`} />
+              <Image
+                src={item.image}
+                alt={item.title}
+                fill
+                className={`object-cover transition-transform duration-700 ${hovered === item.id ? 'scale-110' : 'scale-100'}`}
+                sizes="50vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              <div className="absolute top-4 left-4">
+                <span className="text-[10px] uppercase tracking-[0.2em] font-light px-3 py-1 rounded-full bg-accent/80 text-background">
+                  {item.category}
+                </span>
+              </div>
+              <div className={`absolute top-4 right-4 w-9 h-9 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center transition-all duration-300 ${hovered === item.id ? 'opacity-100' : 'opacity-0'}`}>
+                <ArrowUpRight className="w-4 h-4 text-white" />
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 p-6">
+                <p className="text-[11px] text-white/50 font-light uppercase tracking-widest mb-1">{item.subtitle}</p>
+                <h3 className="text-xl font-light text-white">{item.title}</h3>
+              </div>
+            </div>
+          ))}
 
-                {/* Badge */}
-                <div className="absolute top-4 left-4">
-                  <span className="text-[10px] uppercase tracking-[0.2em] font-light px-3 py-1 rounded-full glass-effect text-white/90">
-                    {item.category}
-                  </span>
-                </div>
-
-                {/* Arrow */}
-                <div className={`absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center transition-all duration-300 ${
-                  hovered === item.id ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
-                }`}>
-                  <ArrowUpRight className="w-4 h-4 text-white" />
-                </div>
-
-                {/* Info */}
-                <div className="absolute bottom-0 left-0 right-0 p-5">
-                  <p className="text-[10px] text-white/50 font-light uppercase tracking-widest mb-1">{item.subtitle}</p>
-                  <h3 className="text-base font-light text-white">{item.title}</h3>
-                </div>
+          {/* Small cards */}
+          {featured.slice(1).map((item, i) => (
+            <div
+              key={item.id}
+              className={`relative rounded-2xl overflow-hidden cursor-pointer transition-all duration-700 ${
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}
+              style={{ transitionDelay: isVisible ? `${(i + 1) * 100}ms` : '0ms' }}
+              onMouseEnter={() => setHovered(item.id)}
+              onMouseLeave={() => setHovered(null)}
+            >
+              <Image
+                src={item.image}
+                alt={item.title}
+                fill
+                className={`object-cover transition-transform duration-700 ${hovered === item.id ? 'scale-110' : 'scale-100'}`}
+                sizes="25vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
+              <div className="absolute top-3 left-3">
+                <span className="text-[9px] uppercase tracking-[0.15em] font-light px-2.5 py-0.5 rounded-full glass-effect text-white/80">
+                  {item.category}
+                </span>
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 p-4">
+                <h3 className="text-sm font-light text-white leading-tight">{item.title}</h3>
+                <p className="text-[10px] text-white/45 font-light mt-0.5">{item.subtitle}</p>
               </div>
             </div>
           ))}
         </div>
 
-        {/* CTA */}
-        <div className={`text-center mt-12 transition-all duration-700 delay-300 ${
+        <div className={`text-center mt-10 transition-all duration-700 delay-300 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
         }`}>
           <Link

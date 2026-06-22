@@ -30,13 +30,13 @@ export default function Hero() {
       <div className="relative z-10 max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8 pt-32 pb-20">
 
         <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
-          <span className={`inline-block text-xs font-light uppercase tracking-[0.35em] text-white/55 mb-7 transition-all duration-1000 delay-100 ${
+          <span className={`inline-block text-xs font-light uppercase tracking-[0.35em] text-white mb-7 [text-shadow:0_2px_12px_rgba(0,0,0,0.8)] transition-all duration-1000 delay-100 ${
             isVisible ? 'opacity-100' : 'opacity-0'
           }`}>
             Premium Event Management
           </span>
 
-          <h1 className="text-5xl sm:text-6xl lg:text-[5.5rem] font-light text-white mb-8 leading-[1.1] tracking-tight">
+          <h1 className="text-5xl sm:text-6xl lg:text-[5.5rem] font-light text-white mb-8 leading-[1.1] tracking-tight [text-shadow:0_4px_24px_rgba(0,0,0,0.7)]">
             Craft Your{' '}
             <span className="relative inline-block">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-accent/90 to-accent/60">
@@ -46,32 +46,15 @@ export default function Hero() {
             </span>
           </h1>
 
-          <p className={`text-lg sm:text-xl text-white/60 mb-14 leading-relaxed max-w-2xl mx-auto font-light transition-all duration-1000 delay-200 ${
+          <p className={`text-lg sm:text-xl text-white/90 mb-14 leading-relaxed max-w-2xl mx-auto font-light [text-shadow:0_2px_16px_rgba(0,0,0,0.8)] transition-all duration-1000 delay-200 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}>
             We transform your vision into unforgettable experiences — from intimate gatherings to grand celebrations, executed flawlessly.
           </p>
-
-          <div className={`flex flex-col sm:flex-row gap-4 justify-center items-center transition-all duration-1000 delay-300 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}>
-            <Link
-              href="/contact"
-              className="px-9 py-4 bg-accent text-background font-medium rounded-full hover:bg-accent/90 hover:scale-105 transition-all duration-300 shadow-lg shadow-accent/20 text-sm tracking-wide"
-            >
-              Start Your Journey
-            </Link>
-            <Link
-              href="/services"
-              className="px-9 py-4 border border-white/30 text-white font-light rounded-full hover:bg-white/10 hover:border-white/50 transition-all duration-300 text-sm tracking-wide"
-            >
-              Explore Services
-            </Link>
-          </div>
         </div>
 
-        {/* Quick nav pills */}
-        <div className={`flex flex-wrap justify-center gap-3 mt-16 transition-all duration-1000 delay-500 ${
+        {/* Quick nav pills — liquid glass */}
+        <div className={`flex flex-wrap justify-center gap-3 mt-14 transition-all duration-1000 delay-500 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
         }`}>
           {[
@@ -83,9 +66,26 @@ export default function Hero() {
             <Link
               key={label}
               href={href}
-              className="text-[11px] uppercase tracking-[0.2em] font-light px-4 py-2 rounded-full border border-white/15 text-white/60 hover:border-accent/50 hover:text-accent transition-all duration-300"
+              className={`
+                relative overflow-hidden group
+                text-[11px] uppercase tracking-[0.2em] font-light
+                px-5 py-2.5 rounded-full
+                text-black/85 hover:text-black
+                bg-white/10 hover:bg-white/18
+                backdrop-blur-2xl
+                border border-white/20 hover:border-white/40
+                shadow-[inset_0_1.5px_1px_rgba(255,255,255,0.3),0_4px_20px_rgba(0,0,0,0.2)]
+                hover:shadow-[inset_0_1.5px_1px_rgba(255,255,255,0.4),0_6px_28px_rgba(0,0,0,0.25)]
+                transition-all duration-300 hover:scale-105
+              `}
             >
-              {label}
+              {/* top gloss sheen */}
+              <span className="absolute inset-x-0 top-0 h-[45%] bg-gradient-to-b from-white/25 to-transparent rounded-t-full pointer-events-none" />
+              {/* bottom rim light */}
+              <span className="absolute inset-x-2 bottom-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none" />
+              {/* accent radial glow on hover */}
+              <span className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-400 bg-[radial-gradient(ellipse_at_50%_120%,_rgba(160,160,210,0.25)_0%,_transparent_65%)] pointer-events-none" />
+              <span className="relative">{label}</span>
             </Link>
           ))}
         </div>
